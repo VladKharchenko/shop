@@ -1,26 +1,32 @@
 <!DOCTYPE html>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-<%@ taglib prefix="spring" uri="http://www.springframework.org/tags"%>
+<%@ taglib prefix="spring" uri="http://www.springframework.org/tags" %>
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
 <%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags" %>
 
-<c:set var="resourceContext" value="${pageContext.request.contextPath}" />
+<c:set var="resourceContext" value="${pageContext.request.contextPath}"/>
 
 <html lang="en">
 <head>
-    <title>Product List</title>
+    <title>Product View</title>
     <link rel="stylesheet" href="${resourceContext}/bootstrap.min.css">
     <link rel="stylesheet" href="${resourceContext}/layout.css">
     <link rel="stylesheet" href="${resourceContext}/style.css">
     <script type="text/javascript" src="${resourceContext}/bootstrap.bundle.min.js"></script>
 </head>
 <body>
-<div class="center">
 
+	<div class="center">
+	
 		<ul id="navbar">
 		  
-		  <li>Cart</li>
+		  <li>View</li>
+		  
 		  <li><a href="/products" role="button">Products</a></li>
+		  
+		  <li><a href="/cart" role="button">Cart:
+		  	<c:out value="${cartSize}" escapeXml="false" />
+		  </a></li>
 		  
 		  <sec:authorize access="hasRole('ROLE_ADMIN')">
 		  	<li><a href="/orderlist" role="button">Order list</a></li>
@@ -44,41 +50,34 @@
           	<li>User: ${pageContext.request.userPrincipal.name}</li>
           </sec:authorize>
 	    </ul>
+	
+		<h1 class="title">
+			<c:out value="${product.title}" escapeXml="false"/>
+		</h1>
+		<p>
+			<c:out value="${product.description}" escapeXml="false" />
+		</p>
+		<p class="g-price-uah">
+			<p>Cost:<c:out value="${product.cost}" escapeXml="false" />
+			<span class='g-price-uah-sign'>grn</span></p>
+			<p>Balance:<c:out value="${product.balance}" escapeXml="false" /></p>
+		</p>
 
-
-		<table class="cart-list">
-			<tr>
-				<th class="cart-item">Product</th>
-				<th>Amount and Cost</th>
-			</tr>
-		</table>
-		<c:forEach items="${products}" var="prod">
-			<table class="cart-list">
-				<tr>
-					<th class="cart-item">${prod.title}</th>
-					<th><a href="/cart?delete&prodId=${prod.id}"
-						class="btn btn-danger" role="button">Remove</a></th>
-				</tr>
-				<tr>
-					<td>${prod.description}</td>
-					<td>(${prod.count})${prod.totalCost}</td>
-				</tr>
-			</table>
-		</c:forEach>
-
-		<div class="cart-buy">
-
-			<h4>Total:${allTotalCost}</h4>
-			
+		<c:if test="${product.balance > 0}">   			
 			<sec:authorize access="hasRole('ROLE_ANONYMOUS')">
-				<a href="/contact" class="btn btn-info" role="button">Buy</a>
+				<a href='/contact/${product.id}' class='btn btn-info' role='button'>Buy</a>
 			</sec:authorize>
 			<sec:authorize access="!hasRole('ROLE_ANONYMOUS')">
-				<a href="/order" class="btn btn-info" role="button">Buy</a>
+				<a href='/order/${product.id}' class='btn btn-info' role='button'>Buy</a>
 			</sec:authorize>
-
-		</div>
-
+			
+			<a href='/cart?add&prodId=${product.id}' class='btn btn-info' role='button'>Add to Cart</a>
+		</c:if>
+		
+		
+		<sec:authorize access="hasRole('ROLE_ADMIN')">
+			<a href='/product/${product.id}' class='btn btn-warning' role='button'>Edit</a>
+		</sec:authorize>
 	</div>
 </body>
 </html>

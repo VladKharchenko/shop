@@ -7,7 +7,7 @@
 
 <html lang="en">
 <head>
-    <title>Product List</title>
+    <title>Check in</title>
     <link rel="stylesheet" href="${resourceContext}/bootstrap.min.css">
     <link rel="stylesheet" href="${resourceContext}/layout.css">
     <link rel="stylesheet" href="${resourceContext}/style.css">
@@ -15,15 +15,33 @@
 </head>
 <body>
 <div class="center">
+	
+	<ul id="navbar">
+		<li>Check in</li>
+		<li><a href="/products" role="button">Products</a></li>
+		<li><a href="/login" role="button">Login</a></li>
+	</ul>
 
-    <form:form modelAttribute="userForm" cssClass="search-box">
-        <form:input path="login" />
-        <form:input path="password" />
-
-        <form:select path="role">
-            <form:options items="${roles}"/>
-        </form:select>
-        <input type="submit" class="btn btn-success" value="create" />
+    <form:form modelAttribute="userForm">
+    	<fieldset>
+	        <form:label path="login">Login:</form:label>
+	        <form:input path="login" />
+	        <br>
+	        <form:label path="password">Password:</form:label>
+	        <form:input path="password" />
+	        <br>
+	        <form:label path="name">Name:</form:label>
+	        <form:input path="name" />
+	        <br>
+	        <form:label path="city">City:</form:label>
+	        <form:input path="city" />
+			<br>
+	        <form:select path="role">
+	            <form:options items="${roles}"/>
+	        </form:select>
+	        <br>
+	        <input type="submit" class="btn btn-success" value="create" />
+        </fieldset>
     </form:form>
 </div>
 </body>

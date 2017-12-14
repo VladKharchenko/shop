@@ -8,18 +8,19 @@
 
 <html lang="en">
 <head>
-    <title>Product List</title>
+    <title>Contact</title>
     <link rel="stylesheet" href="${resourceContext}/bootstrap.min.css">
     <link rel="stylesheet" href="${resourceContext}/layout.css">
     <link rel="stylesheet" href="${resourceContext}/style.css">
     <script type="text/javascript" src="${resourceContext}/bootstrap.bundle.min.js"></script>
 </head>
 <body>
+
 <div class="center">
 
-		<ul id="navbar">
+<ul id="navbar">
 		  
-		  <li>Cart</li>
+		  <li>Contact</li>
 		  <li><a href="/products" role="button">Products</a></li>
 		  
 		  <sec:authorize access="hasRole('ROLE_ADMIN')">
@@ -45,40 +46,19 @@
           </sec:authorize>
 	    </ul>
 
-
-		<table class="cart-list">
-			<tr>
-				<th class="cart-item">Product</th>
-				<th>Amount and Cost</th>
-			</tr>
-		</table>
-		<c:forEach items="${products}" var="prod">
-			<table class="cart-list">
-				<tr>
-					<th class="cart-item">${prod.title}</th>
-					<th><a href="/cart?delete&prodId=${prod.id}"
-						class="btn btn-danger" role="button">Remove</a></th>
-				</tr>
-				<tr>
-					<td>${prod.description}</td>
-					<td>(${prod.count})${prod.totalCost}</td>
-				</tr>
-			</table>
-		</c:forEach>
-
-		<div class="cart-buy">
-
-			<h4>Total:${allTotalCost}</h4>
-			
-			<sec:authorize access="hasRole('ROLE_ANONYMOUS')">
-				<a href="/contact" class="btn btn-info" role="button">Buy</a>
-			</sec:authorize>
-			<sec:authorize access="!hasRole('ROLE_ANONYMOUS')">
-				<a href="/order" class="btn btn-info" role="button">Buy</a>
-			</sec:authorize>
-
-		</div>
-
-	</div>
+	<form:form modelAttribute="userDataForm">
+		<fieldset>
+			<form:label path="name">Name:</form:label>
+	        <form:input path="name" />
+	        <br/>
+	        
+	        <form:label path="city">City:</form:label>
+	        <form:input path="city" />
+	        <br/>
+	
+	        <input type="submit" class="btn btn-success" value="buy" />
+        </fieldset>
+    </form:form>	
+</div>
 </body>
 </html>

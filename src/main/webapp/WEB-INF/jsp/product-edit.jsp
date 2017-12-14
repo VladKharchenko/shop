@@ -16,22 +16,33 @@
 <body>
 <div class="center">
 
+	<ul id="navbar">  
+		<li>Edit</li>
+		<li><a href="/products" role="button">Products</a></li>
+        <li><a href="/logout" role="button">Logout</a></li>
+        <li>Admin</li>
+	</ul>
+
     <form:form modelAttribute="product">
         <fieldset>
             <form:label path="title">Title:</form:label>
 	        <form:input path="title" />
+	        <span class="error"><form:errors path="title" /></span>
 	        <br />
 
-            <form:label path="title">Description:</form:label>
+            <form:label path="description">Description:</form:label>
 	        <form:input path="description" />
+	        <span class="error"><form:errors path="description" /></span>
 	        <br />
 
-            <form:label path="title">Cost:</form:label>
+            <form:label path="cost">Cost:</form:label>
 	        <form:input path="cost" />
+	        <span class="error"><form:errors path="cost" /></span>
 	        <br />
 
-            <form:label path="title">Balance:</form:label>
+            <form:label path="balance">Balance:</form:label>
 	        <form:input path="balance" />
+	        <span class="error"><form:errors path="balance" /></span>
 	        <br />
         </fieldset>
 

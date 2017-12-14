@@ -7,7 +7,7 @@
 
 <html lang="en">
 <head>
-    <title>Product List</title>
+    <title>Login</title>
     <link rel="stylesheet" href="${resourceContext}/bootstrap.min.css">
     <link rel="stylesheet" href="${resourceContext}/layout.css">
     <link rel="stylesheet" href="${resourceContext}/style.css">
@@ -15,6 +15,16 @@
 </head>
 <body>
 <div class="center">
+
+	<ul id="navbar">
+		  
+		  <li>Login</li>
+		  
+		  <li><a href="/products" role="button">Products</a></li>
+		  
+          <li><a href="/user" role="button">Check in</a></li>
+ 	  
+	</ul>
 
     <form name="f" th:action="@{/login}" method="post">
         <fieldset>
