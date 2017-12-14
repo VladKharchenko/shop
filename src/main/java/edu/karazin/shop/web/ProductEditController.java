@@ -5,12 +5,14 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
 import edu.karazin.shop.model.Product;
 import edu.karazin.shop.service.ProductService;
+import javax.validation.Valid;
 
 @Controller
 @RequestMapping("product")
@@ -46,14 +48,22 @@ public class ProductEditController {
 	}
 
 	@RequestMapping(method = RequestMethod.POST)
-	public String addProduct(Model model, Product product) {
+	public String addProduct(Model model, @Valid Product product, 
+			BindingResult bindingResult) {
+		if (bindingResult.hasErrors()) {
+            return "product-edit";
+        }
 		log.info("Add product");
 		productService.addProduct(product);
 		return "redirect:/products";
 	}
 
 	@RequestMapping(method = RequestMethod.POST, path = "{id}")
-	public String updateProduct(Model model, Product product) {
+	public String updateProduct(Model model, @Valid Product product, 
+			BindingResult bindingResult) {
+		if (bindingResult.hasErrors()) {
+            return "product-edit";
+        }
 		log.info("Update product");
 		productService.updateProduct(product);
 		return "redirect:/products";

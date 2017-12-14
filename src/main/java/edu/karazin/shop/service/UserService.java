@@ -4,9 +4,9 @@ import edu.karazin.shop.model.User;
 
 public interface UserService {
 
-    User createUser(User user);
+	User createUser(User user);
 
-    User getUser(Long id);
+	User getUser(Long id);
 
-    User getUser(String login);
+	User getUser(String login);
 }

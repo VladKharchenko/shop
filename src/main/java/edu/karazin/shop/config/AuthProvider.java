@@ -16,36 +16,34 @@ import java.util.Arrays;
 @Component
 public class AuthProvider implements AuthenticationProvider {
 
-    private final UserService userService;
+	private final UserService userService;
 
-    @Autowired
-    public AuthProvider(UserService userService) {
-        this.userService = userService;
-    }
+	@Autowired
+	public AuthProvider(UserService userService) {
+		this.userService = userService;
+	}
 
-    @Override
-    public Authentication authenticate(Authentication authentication) throws AuthenticationException {
-        User user = userService.getUser((String) authentication.getPrincipal());
-        if (isValidCredentials(authentication, user)) {
-            return createAuthentication(authentication, user.getRole());
-        } else {
-            return null;
-        }
-    }
+	@Override
+	public Authentication authenticate(Authentication authentication) throws AuthenticationException {
+		User user = userService.getUser((String) authentication.getPrincipal());
+		if (isValidCredentials(authentication, user)) {
+			return createAuthentication(authentication, user.getRole());
+		} else {
+			return null;
+		}
+	}
 
-    public UsernamePasswordAuthenticationToken createAuthentication(Authentication authentication, Role role) {
-        return new UsernamePasswordAuthenticationToken(
-                authentication.getPrincipal(),
-                authentication.getCredentials(),
-                Arrays.asList(new SimpleGrantedAuthority(role.toString())));
-    }
+	public UsernamePasswordAuthenticationToken createAuthentication(Authentication authentication, Role role) {
+		return new UsernamePasswordAuthenticationToken(authentication.getPrincipal(), authentication.getCredentials(),
+				Arrays.asList(new SimpleGrantedAuthority(role.toString())));
+	}
 
-    private boolean isValidCredentials(Authentication authentication, User user) {
-        return user != null &&  user.getPassword().equals(authentication.getCredentials());
-    }
+	private boolean isValidCredentials(Authentication authentication, User user) {
+		return user != null && user.getPassword().equals(authentication.getCredentials());
+	}
 
-    @Override
-    public boolean supports(Class<?> authentication) {
-        return UsernamePasswordAuthenticationToken.class.isAssignableFrom(authentication);
-    }
+	@Override
+	public boolean supports(Class<?> authentication) {
+		return UsernamePasswordAuthenticationToken.class.isAssignableFrom(authentication);
+	}
 }

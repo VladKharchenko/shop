@@ -1,14 +1,23 @@
 package edu.karazin.shop.service;
 
-import java.util.List;
+import java.util.Set;
 
+import edu.karazin.shop.model.BucketProducts;
 import edu.karazin.shop.model.Product;
 
 public interface CartStore {
 
-	List<Product> getProducts();
+	Set<BucketProducts> getProducts();
 
-	void addProduct(Product prod);
+	void addProduct(BucketProducts prod);
 
-	void removeProduct(Product prod);
+	void removeProduct(BucketProducts prod);
+	
+	void removeAllProduct();
+	
+	int sizeStore();
+	
+	long allTotalCost();
+	
+	int getCountSomeProduct(Product product);
 }

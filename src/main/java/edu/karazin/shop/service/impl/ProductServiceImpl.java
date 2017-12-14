@@ -1,4 +1,4 @@
-package edu.karazin.shop.service;
+package edu.karazin.shop.service.impl;
 
 import java.util.List;
 
@@ -9,6 +9,7 @@ import org.springframework.stereotype.Service;
 
 import edu.karazin.shop.dao.ProductDao;
 import edu.karazin.shop.model.Product;
+import edu.karazin.shop.service.ProductService;
 
 @Service
 public class ProductServiceImpl implements ProductService {
